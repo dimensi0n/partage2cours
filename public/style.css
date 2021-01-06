@@ -1,0 +1,43 @@
+:root {
+    --main-color: #fc6ca4;
+}  
+
+body {
+    padding: 20% 10%;
+    background-color: #F5F5F5;
+    text-align: center;
+}
+
+img {
+    width: 100%;
+}
+
+.card {
+    margin-top: 10%;
+    background-color: white;
+    padding: 5%;
+    width: 100%;
+}
+
+.card a {
+    color: var(--main-color);
+}
+
+button {
+    width: 100%;
+    background-color: var(--main-color);
+    color: white;
+}
+
+button:active:focus {
+    box-shadow: none;
+    background-color: white;
+    border-color: var(--main-color);
+    color: var(--main-color);
+}
+
+@media screen and (min-width: 740px) {
+    body {
+        padding: 10% 30%;
+    }
+}
