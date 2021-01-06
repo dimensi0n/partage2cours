@@ -20,9 +20,20 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.on('/').render('welcome').middleware('auth')
+Route.get('/', async ({ auth, view }) => {
+  const user = await auth.authenticate()
+  console.log(user)
+  return view.render('welcome', { user })
+})
+
 Route.on('register').render('register')
 Route.post('register', 'AuthController.register')
 Route.on('/login').render('login')
 Route.post('/login', 'AuthController.login')
 Route.get('/logout', 'AuthController.logout')
+
+Route.group(() => {
+  Route.get('/:username', 'ProfilesController.show')
+})
+  .prefix('/profile')
+  .middleware('auth')

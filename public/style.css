@@ -23,6 +23,12 @@ img {
     color: var(--main-color);
 }
 
+#usernameAlert {
+    background-color: #ff85b4;
+    border-color: var(--main-color);
+    color: #FFF;
+}
+
 button {
     width: 100%;
     background-color: var(--main-color);

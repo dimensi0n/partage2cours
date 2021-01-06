@@ -24,5 +24,8 @@ export default class User extends BaseModel {
   public classe: string
 
   @column()
+  public biography: string
+
+  @column()
   public rememberMeToken: string
 }

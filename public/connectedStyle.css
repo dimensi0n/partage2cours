@@ -1,0 +1,53 @@
+body {
+  background-color: #F5F5F5;
+}
+
+.navbar {
+  background-color: #fc6ca4;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+}
+
+.navbar-toggler {
+  border: none;
+  color: white;
+}
+
+.dropdown {
+  left: 0;
+}
+
+.dropdown-item i {
+  color: #fc6ca4;
+}
+
+#home .card {
+  padding: 2%;
+}
+
+#home .card > .star {
+  position: absolute;
+  right: 3%;
+  top: 2%;
+  color: white;
+}
+
+#home .card> .star.activated {
+  color: #f1c40f;
+}
+
+#home .card > form > button {
+  background-color: white;
+  border-color: #fc6ca4;
+  color: #fc6ca4;
+}
+
+#home .card > form > button:active:focus {
+  box-shadow: none;
+}
+
+#home .row .card a {
+  width: 100%;
+}

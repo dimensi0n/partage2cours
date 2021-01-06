@@ -1,110 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AdonisJS - A Modern Web Framework For Node.js</title>
-  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500&display=swap" rel="stylesheet">
-  <style>
-    html, body {
-      background-color: #F7F8FA;
-      font-family: 'Poppins', sans-serif;
-      height: 100vh;
-      color: #46444c;
-      position: relative;
-    }
+@layout('connected')
 
-    body:before {
-      content: '';
-      background: #5A45FF;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      position: absolute;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    a {
-      color: #5A45FF;
-      text-decoration: none;
-    }
-
-    main {
-      max-width: 620px;
-      margin: auto;
-      height: 100vh;
-      padding: 0 30px;
-      align-items: center;
-      display: flex;
-      justify-content: center;
-    }
-
-    .title {
-      font-size: 50px;
-      line-height: 50px;
-      margin-bottom: 10px;
-      color: #17161A;
-    }
-
-    .subtitle {
-      font-size: 26px;
-      margin-bottom: 40px;
-    }
-
-    p {
-      margin-bottom: 20px;
-    }
-
-    main ul {
-      list-style: none;
-    }
-
-    main li {
-      margin-bottom: 5px;
-      position: relative;
-      padding-left: 25px;
-    }
-
-    main li:before {
-      content: '—';
-      position: absolute;
-      left: 0;
-    }
-
-    main code {
-      font-size: 16px;
-      background: #e6e2ff;
-    }
-  </style>
-</head>
-<body>
-
-  <main>
-    <div>
-      <h1 class="title"> It Works! </h1>
-      <p class="subtitle">
-        Congratulations, you have just created your first AdonisJS app.
-      </p>
-
-      <ul>
-        <li>
-          The route for this page is defined inside <code>start/routes.ts</code> file
-        </li>
-
-        <li>
-          You can update this page by editing <code>resources/views/welcome.edge</code> file
-        </li>
-
-        <li>
-          If you run into problems, you can reach us on <a href="https://discord.gg/vDcEjq6?">Discord</a> or the <a href="https://forum.adonisjs.com/">Forum</a>.
-        </li>
-      </ul>
-    </div>
-  </main>
-</body>
-</html>
+@section('content')
+<div class="container" id="home">
+  <div class="card">
+      <form class="form-inline">
+          <select class="w-25 custom-select">
+              <option selected>Classe</option>
+              <option value="1">Seconde</option>
+              <option value="2">Premiere</option>
+              <option value="3">Terminale</option>
+          </select>
+          <select class="w-25 custom-select">
+              <option selected>Matière</option>
+              <option value="1">Histoire-Géographie</option>
+              <option value="2">Enseignement Scientifique</option>
+              <option value="3">Philosophie</option>
+          </select>
+          <select class="w-25 custom-select">
+              <option selected>Type</option>
+              <option value="1">Fiche de révision</option>
+              <option value="2">Cours</option>
+          </select>
+          <button type="submit" class="btn w-25">Rechercher</button>
+      </form>
+  </div>
+  <br>
+  <div class="row">
+      <div class="col-sm">
+          <div class="card">
+              <i class="fas fa-star star" data-toggle="tooltip" data-placement="top" title="Ajouter aux favoris"></i>
+              <img class="card-img-top" src="https://img-4.linternaute.com/9z0cQYE68I3TREOFIKwaFgKucKE=/1240x/smart/f6893f147d7c4dac9141991c234729e6/ccmcms-linternaute/10759855.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">L'inconscient</h5>
+                <p class="card-text">Freud exprime la notion d'inconscient à travers l'interprétation des rêves.</p>
+                <span href="#" class="badge badge-dark"><i class="fas fa-user"></i> Erwan</span>
+                <span class="badge badge-pill badge-secondary">Terminale</span>
+                <span class="badge badge-pill badge-secondary">Philosophie</span>
+                <span class="badge badge-pill badge-secondary">Cours</span>
+                <br><br>
+                <br>
+                <a href="#" class="btn btn-secondary">Consulter</a>
+              </div>
+            </div>
+      </div>
+      <div class="col-sm">
+          <div class="card">
+              <i class="fas fa-star star" data-toggle="tooltip" data-placement="top" title="Ajouter aux favoris"></i>
+              <img class="card-img-top" src="https://img.lemde.fr/2019/10/08/0/0/1200/799/688/0/60/0/6ef958d_719VIr9T3frwobunsCGkW8bd.JPG" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">La crise de 1929</h5>
+                <p class="card-text">La Grande Dépression, dite aussi « crise économique des années 1930 », est la période de l'histoire mondiale qui va du krach de 1929 aux États-Unis jusqu'à la Seconde Guerre mondiale.</p>
+                <span href="#" class="badge badge-dark"><i class="fas fa-user"></i> Erwan</span>
+                <span class="badge badge-pill badge-secondary">Terminale</span>
+                <span class="badge badge-pill badge-secondary">Histoire</span>
+                <span class="badge badge-pill badge-secondary">Fiche de révision</span>
+                <br><br>
+                <a href="#" class="btn btn-secondary">Consulter</a>
+              </div>
+            </div>
+      </div>
+      <div class="col-sm">
+          <div class="card">
+              <object class="star activated" data="david.svg" type="image/svg+xml"></object>
+              <img class="card-img-top" src="https://cdn.radiofrance.fr/s3/cruiser-production/2018/10/94b6ecde-14e9-48a4-97ab-67e93cf4e083/838_gettyimages-839221830_1.jpg" alt="Card image cap">
+              <div class="card-body">
+                  <h5 class="card-title">Les régimes totalitaires</h5>
+                  <p class="card-text">Dans les années 1920 et 1930, des régimes totalitaires, fondés sur le contrôle total des populations, le pouvoir absolu d'un chef et la terreur, font leur apparition. </p>
+                  <span href="#" class="badge badge-dark"><i class="fas fa-user"></i> Erwan</span>
+                  <span class="badge badge-pill badge-secondary">Terminale</span>
+                  <span class="badge badge-pill badge-secondary">Histoire</span>
+                  <span class="badge badge-pill badge-secondary">Fiche de révision</span>
+                  <br><br>
+                  <a href="#" class="btn btn-secondary">Consulter</a>
+              </div>
+            </div>
+      </div>
+  </div>
+</div>
+@endsection
