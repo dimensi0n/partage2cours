@@ -37,6 +37,7 @@ Route.group(() => {
     return view.render('profile/edit', { user })
   })
   Route.post('/edit', 'ProfilesController.edit')
+  Route.post('/edit/updatePassword', 'ProfilesController.updatePassword')
   Route.get('/:username', 'ProfilesController.show')
 })
   .prefix('/profile')
