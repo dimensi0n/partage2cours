@@ -22,7 +22,6 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async ({ auth, view }) => {
   const user = await auth.authenticate()
-  console.log(user)
   return view.render('welcome', { user })
 })
 
@@ -33,6 +32,11 @@ Route.post('/login', 'AuthController.login')
 Route.get('/logout', 'AuthController.logout')
 
 Route.group(() => {
+  Route.get('/edit', async ({ auth, view }) => {
+    const user = await auth.authenticate()
+    return view.render('profile/edit', { user })
+  })
+  Route.post('/edit', 'ProfilesController.edit')
   Route.get('/:username', 'ProfilesController.show')
 })
   .prefix('/profile')

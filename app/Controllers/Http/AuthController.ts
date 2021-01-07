@@ -13,7 +13,7 @@ export default class AuthController {
         rules.email(),
         rules.unique({ table: 'users', column: 'email' }),
       ]),
-      username: schema.string({ trim: true }, [rules.alpha()]),
+      username: schema.string({ trim: true }, [rules.alpha(), rules.blacklist(['edit'])]),
       password: schema.string({ trim: true }),
       classe: schema.string({ trim: true }),
     })

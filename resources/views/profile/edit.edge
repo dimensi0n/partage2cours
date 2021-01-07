@@ -1,0 +1,47 @@
+@layout('connected')
+
+@section('content')
+  <div class="container" id="editprofile">
+    <br>
+    <div class="card">
+      <div class="card-header">
+        Modifier son profil
+      </div>
+      <div class="card-body">
+        <form action="{{ route('ProfilesController.edit') }}" method="post">
+          <div class="form-group">
+            <input type="email" class="form-control" name="email" placeholder="Addresse email" value="{{ flashMessages.get('email') || user.email }}">
+            <p>{{ flashMessages.get('errors.email') || '' }}</p>
+          </div>
+          <div class="form-group">
+            <div class="alert alert-secondary" id="usernameAlert" role="alert">
+              Le nom d'utilisateur ne doit contenir que des lettres (pas de caractères spéciaux ou de chiffres)
+            </div>
+            <input type="text" class="form-control" name="username" placeholder="Nom d'utilisateur" value="{{ flashMessages.get('username') || user.username }}">
+            <p>{{ flashMessages.get('errors.username') || '' }}</p>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Mot de passe" value="{{ user.password }}">
+            <p>{{ flashMessages.get('errors.password') || '' }}</p>
+          </div>
+          <div class="form-group">
+            <select name="classe" class="custom-select">
+              <option selected>Classe</option>
+              <option value="Terminale">Terminale</option>
+              <option value="Première">Première</option>
+              <option value="Seconde">Seconde</option>
+              <option value="3e">3e</option>
+              <option value="4e">4e</option>
+              <option value="5e">5e</option>
+              <option value="6e">6e</option>
+            </select>
+            <p>{{ flashMessages.get('errors.classe') || '' }}</p>
+          </div>
+          <br>
+          <br>
+          <button type="submit" class="w-100 btn">Modifier</button>
+        </form>
+      </div>
+    </div>
+  </div>
+@endsection

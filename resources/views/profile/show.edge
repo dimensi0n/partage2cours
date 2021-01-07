@@ -2,6 +2,23 @@
 
 @section('content')
   <div class="container" id="profile">
-    {{ user.username }}
+    <br>
+    <div class="card">
+      <div class="card-header">Informations de l'utilisateur</div>
+      <div class="row card-body">
+        <div class="col-sm-6">
+          <h5 class="card-title">{{ targetUser.username }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ targetUser.classe }}</h6>
+          <div class="card-text">{{ targetUser.biography }}</div>
+          @if(isCurrentUser)
+            <a href="/profile/edit" class="align-right card-link">Modifier mon compte</a>
+          @endif
+        </div>
+        <div id="profilepic" class="align-right col-sm-6">
+          <img src="/profile.png" height="100" alt="Photo de profil">
+        </div>
+      </div>
+    </div>
+    
   </div>
 @endsection

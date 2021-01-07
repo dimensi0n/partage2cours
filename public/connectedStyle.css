@@ -1,9 +1,17 @@
+:root {
+  --main-color: #fc6ca4;
+}  
+
 body {
   background-color: #F5F5F5;
 }
 
+.align-right {
+  text-align: right;
+}
+
 .navbar {
-  background-color: #fc6ca4;
+  background-color: var(--main-color);
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -20,7 +28,7 @@ body {
 }
 
 .dropdown-item i {
-  color: #fc6ca4;
+  color: var(--main-color);
 }
 
 #home .card {
@@ -40,8 +48,8 @@ body {
 
 #home .card > form > button {
   background-color: white;
-  border-color: #fc6ca4;
-  color: #fc6ca4;
+  border-color: var(--main-color);
+  color: var(--main-color);
 }
 
 #home .card > form > button:active:focus {
@@ -50,4 +58,12 @@ body {
 
 #home .row .card a {
   width: 100%;
+}
+
+#profile .card {
+  border-color: var(--main-color);
+}
+
+#profile .card .card-body {
+  color: var(--main-color);
 }
