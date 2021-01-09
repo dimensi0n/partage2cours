@@ -2,7 +2,6 @@
 import User from 'App/Models/User'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import { hash, verify } from 'phc-bcrypt'
-import Session from '@ioc:Adonis/Addons/Session'
 
 export default class ProfilesController {
   public async show({ params, auth, view, response }) {

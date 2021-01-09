@@ -23,7 +23,7 @@
             @if(user)
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                  <a href="#" class="nav-link"><i class="fas fa-plus"></i> Nouveau Cours</a>
+                  <a href="/cours/create" class="nav-link"><i class="fas fa-plus"></i> Nouveau Cours</a>
               </li>
               <li>
                   <li class="nav-item dropdown">
@@ -47,6 +47,19 @@
             @endif
         </div>
     </nav>
+    <div class="container">
+      @if(flashMessages.has('info-success'))
+        <div class="alert alert-success" role="alert">
+          {{ flashMessages.get('info-success') }}
+        </div>
+      @elseif(flashMessages.has('info-danger'))
+        <div class="alert alert-danger" role="alert">
+          {{ flashMessages.get('info-danger') }}
+        </div>
+      @else
+        
+      @endif
+    </div>
     @!section('content')
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

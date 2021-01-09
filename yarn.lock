@@ -4204,6 +4204,11 @@
     "astral-regex" "^2.0.0"
     "is-fullwidth-code-point" "^3.0.0"
 
+"slugify@^1.4.6":
+  "integrity" "sha512-ZdJIgv9gdrYwhXqxsH9pv7nXxjUEyQ6nqhngRxoAAOlmMGA28FDq5O4/5US4G2/Nod7d1ovNcgURQJ7kHq50KQ=="
+  "resolved" "https://registry.npmjs.org/slugify/-/slugify-1.4.6.tgz"
+  "version" "1.4.6"
+
 "smpltmpl@^1.0.2":
   "integrity" "sha512-Hq23NNgeZigOzIiX1dkb6W3gFn2/XQj43KhPxu65IMieG/gIwf/lQb1IudjYv0c/5LwJeS/mPayYzyo+8WJMxQ=="
   "resolved" "https://registry.yarnpkg.com/smpltmpl/-/smpltmpl-1.0.2.tgz"

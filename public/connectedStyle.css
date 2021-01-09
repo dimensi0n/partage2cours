@@ -67,3 +67,7 @@ body {
 #profile .card .card-body {
   color: var(--main-color);
 }
+
+form p {
+  color: red;
+}

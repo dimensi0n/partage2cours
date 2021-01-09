@@ -42,3 +42,13 @@ Route.group(() => {
 })
   .prefix('/profile')
   .middleware('auth')
+
+Route.group(() => {
+  Route.get('/create', async ({ auth, view }) => {
+    const user = await auth.authenticate()
+    return view.render('cours/create', { user })
+  })
+  Route.post('/create', 'CoursController.create')
+})
+  .prefix('/cours')
+  .middleware('auth')

@@ -1,8 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Cours from './Cours'
+import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class User extends BaseModel {
+export default class Cours extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
@@ -13,23 +12,23 @@ export default class User extends BaseModel {
   public updatedAt: DateTime
 
   @column()
-  public email: string
+  public userId: number
 
   @column()
-  public username: string
+  public nom: string
 
   @column()
-  public password: string
+  public description: string
 
   @column()
   public classe: string
 
   @column()
-  public biography: string
+  public matiere: string
 
   @column()
-  public rememberMeToken: string
+  public filePath: string
 
-  @hasMany(() => Cours)
-  public cours: HasMany<typeof Cours>
+  @column()
+  public type: string
 }
