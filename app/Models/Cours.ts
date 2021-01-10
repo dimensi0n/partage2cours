@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import Fichier from './Fichier'
 
 export default class Cours extends BaseModel {
   @column({ isPrimary: true })
@@ -18,7 +19,13 @@ export default class Cours extends BaseModel {
   public nom: string
 
   @column()
+  public slug: string
+
+  @column()
   public description: string
+
+  @hasOne(() => Fichier)
+  public miniature: HasOne<typeof Fichier>
 
   @column()
   public classe: string
@@ -26,8 +33,8 @@ export default class Cours extends BaseModel {
   @column()
   public matiere: string
 
-  @column()
-  public filePath: string
+  @hasMany(() => Fichier)
+  public fichiers: HasMany<typeof Fichier>
 
   @column()
   public type: string

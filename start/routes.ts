@@ -49,6 +49,7 @@ Route.group(() => {
     return view.render('cours/create', { user })
   })
   Route.post('/create', 'CoursController.create')
+  Route.get('/:username/:slug', 'CoursController.show')
 })
   .prefix('/cours')
   .middleware('auth')

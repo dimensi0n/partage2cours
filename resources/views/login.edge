@@ -4,6 +4,11 @@
 <img src="logo.png" alt="Logo">
 <br>
 <div class="card">
+    @if(flashMessages.has('error'))
+      <div class="alert alert-danger" role="alert">
+        {{ flashMessages.get('error') }}
+      </div>
+    @endif
     <form action="{{ route('AuthController.login') }}" method="POST" >
         <div class="form-group">
           <input type="email" class="form-control" name="email" placeholder="Addresse email" value="{{ flashMessages.get('email') || '' }}">

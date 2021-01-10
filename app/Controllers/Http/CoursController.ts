@@ -1,15 +1,18 @@
-// import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import Application from '@ioc:Adonis/Core/Application'
 import Cours from 'App/Models/Cours'
 import slugify from 'slugify'
+import User from 'App/Models/User'
+import Fichier from 'App/Models/Fichier'
 
 export default class CoursController {
   /**
    * @TODO Add flash messages et les custom errors
+   * @TODO Add description breaklines
    */
-  public async create({ request, auth, session, response }) {
-    const user = auth.user
+  public async create({ request, auth, session, response }: HttpContextContract) {
+    const user = auth.user || new User()
 
     const validationSchema = schema.create({
       nom: schema.string({ trim: true }),
@@ -17,9 +20,9 @@ export default class CoursController {
       classe: schema.string({ trim: true }, [rules.blacklist(['Classe'])]),
       matiere: schema.string({ trim: true }),
       type: schema.string({ trim: true }, [rules.blacklist(['Type'])]),
-      document: schema.file({
+      miniature: schema.file.optional({
         size: '2mb',
-        extnames: ['png', 'jpg', 'jpeg', 'pdf', 'odt', 'docx'],
+        extnames: ['png', 'jpg', 'jpeg'],
       }),
     })
 
@@ -34,15 +37,62 @@ export default class CoursController {
     cours.matiere = coursDetails.matiere
     cours.type = coursDetails.type
 
-    const path = `${user.username}/${slugify(coursDetails.nom)}`
-    await coursDetails.document.move(Application.publicPath(`uploads/${path}`))
+    const slug = slugify(coursDetails.nom)
+    cours.slug = slug
 
-    console.log(coursDetails.document)
-    cours.filePath = `/uploads/${path}/${coursDetails.document.fileName}`
+    await user.related('cours').save(cours)
 
-    user.related('cours').save(cours)
+    const path = `${user.username}/${slug}`
+    const fichiers = request.files('fichiers', {
+      size: '2mb',
+      extnames: ['jpg', 'png', 'jpeg', 'docx', 'odt', 'pdf', 'pptx', 'odp'],
+    })
+    if (fichiers.length === 0) {
+      session.flash('errors.fichiers', 'Fichier manquant')
+    }
+    for (let document of fichiers) {
+      const fichier = new Fichier()
+      const name = document.fileName
+      fichier.path = `/uploads/${path}/${name}`
+      await document.move(Application.publicPath(`uploads/${path}/`))
+      await cours.related('fichiers').save(fichier)
+    }
+    const miniature = new Fichier()
+    if (coursDetails.miniature) {
+      const name = coursDetails.miniature?.fileName
+      miniature.path = `/uploads/${path}/${name}`
+    } else {
+      miniature.path = '/miniaturecours.png'
+    }
+    await coursDetails.miniature?.move(Application.publicPath(`uploads/${path}/`))
+    console.log(miniature.path, coursDetails.miniature?.fileName)
 
+    await cours.related('miniature').save(miniature)
+
+    /**
+     * @BUG la session ne fonctionne pas
+     */
     session.flash('info-sucess', 'Votre cours a bien été créé')
-    return response.redirect('/')
+    response.redirect(`/cours/${user.username}/${slug}`)
+  }
+
+  public async show({ params, auth, response, view }) {
+    const user = auth.user || new User()
+    try {
+      const { username, slug } = params
+      const targetUser = await User.findBy('username', username)
+      const cours = await targetUser?.related('cours').query().where('slug', slug)
+
+      if (cours?.length === 0) {
+        response.status(404)
+        return view.render('errors.not-found')
+      } else {
+        return view.render('cours/show', { user, targetUser, cours })
+      }
+    } catch (error) {
+      console.log(error)
+      response.status(404)
+      return view.render('errors.not-found')
+    }
   }
 }

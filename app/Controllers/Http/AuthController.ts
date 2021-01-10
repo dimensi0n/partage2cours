@@ -36,14 +36,18 @@ export default class AuthController {
     response.redirect('/')
   }
 
-  public async login({ request, auth, response }) {
+  public async login({ request, auth, session, response }) {
     const email = request.input('email')
     const password = request.input('password')
     const rememberUser = !!request.input('remember_me')
 
-    await auth.attempt(email, password, rememberUser)
-
-    response.redirect('/')
+    try {
+      await auth.attempt(email, password, rememberUser)
+      response.redirect('/')
+    } catch (err) {
+      session.flash('error', 'Identifiants invalides')
+      response.redirect('back')
+    }
   }
 
   public async logout({ auth, response }) {
