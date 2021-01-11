@@ -1,5 +1,23 @@
 @layout('connected')
 
 @section('content')
-Hello
+<div class="container" id="showCours">
+  <br>
+  @each(cour in cours)
+  <div class="card">
+    <img class="card-img-top" src="{{ cour.miniature.path }}" alt="Miniature">
+    <div class="card-body">
+      <h2 class="card-title">{{ cour.nom }}</h5>
+      <p class="card-text">{{ cour.description }}</p>
+      <span class="badge badge-pill badge-secondary">{{ cour.classe }}</span>
+      <span class="badge badge-pill badge-secondary">{{ cour.matiere }}</span>
+      <span class="badge badge-pill badge-secondary">{{ cour.type }}</span>
+      <h5>Fichiers du cours :</h5>
+      @each(fichier in cour.fichiers)
+        <a href="{{ fichier.path }}" class="btn btn-primary">Télécharger {{ fichier.nom }}</a>
+      @endeach
+    </div>
+  </div>
+  @endeach
+</div>
 @endsection

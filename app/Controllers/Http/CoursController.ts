@@ -8,8 +8,8 @@ import Fichier from 'App/Models/Fichier'
 
 export default class CoursController {
   /**
-   * @TODO Add flash messages et les custom errors
    * @TODO Add description breaklines
+   * @TODO Extend validator to make the cours name unique for the user
    */
   public async create({ request, auth, session, response }: HttpContextContract) {
     const user = auth.user || new User()
@@ -52,20 +52,21 @@ export default class CoursController {
     }
     for (let document of fichiers) {
       const fichier = new Fichier()
-      const name = document.fileName
+      const name = document.clientName
+      fichier.nom = name
       fichier.path = `/uploads/${path}/${name}`
       await document.move(Application.publicPath(`uploads/${path}/`))
       await cours.related('fichiers').save(fichier)
     }
     const miniature = new Fichier()
     if (coursDetails.miniature) {
-      const name = coursDetails.miniature?.fileName
+      const name = coursDetails.miniature?.clientName
+      miniature.nom = name
       miniature.path = `/uploads/${path}/${name}`
     } else {
       miniature.path = '/miniaturecours.png'
     }
     await coursDetails.miniature?.move(Application.publicPath(`uploads/${path}/`))
-    console.log(miniature.path, coursDetails.miniature?.fileName)
 
     await cours.related('miniature').save(miniature)
 
@@ -81,7 +82,12 @@ export default class CoursController {
     try {
       const { username, slug } = params
       const targetUser = await User.findBy('username', username)
-      const cours = await targetUser?.related('cours').query().where('slug', slug)
+      const cours = await targetUser
+        ?.related('cours')
+        .query()
+        .where('slug', slug)
+        .preload('miniature')
+        .preload('fichiers')
 
       if (cours?.length === 0) {
         response.status(404)

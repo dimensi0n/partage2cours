@@ -15,5 +15,8 @@ export default class Fichier extends BaseModel {
   public coursId: number
 
   @column()
+  public nom: string | undefined
+
+  @column()
   public path: string
 }

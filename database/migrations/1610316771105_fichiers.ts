@@ -8,6 +8,7 @@ export default class Fichiers extends BaseSchema {
       table.increments('id')
       table.integer('cours_id').notNullable()
       table.string('path').notNullable()
+      table.string('nom')
       table.timestamps(true)
     })
   }
