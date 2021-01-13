@@ -60,11 +60,11 @@ body {
   width: 100%;
 }
 
-#profile .card {
+#profile-card {
   border-color: var(--main-color);
 }
 
-#profile .card .card-body {
+#profile-card .card-body {
   color: var(--main-color);
 }
 

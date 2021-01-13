@@ -5,19 +5,31 @@
   <br>
   @each(cour in cours)
   <div class="card">
-    <img class="card-img-top" src="{{ cour.miniature.path }}" alt="Miniature">
+    @if(cour.miniature.path)
+      <img class="card-img-top" src="{{ cour.miniature.path }}" alt="Miniature">
+    @endif
     <div class="card-body">
       <h2 class="card-title">{{ cour.nom }}</h5>
       <p class="card-text">{{ cour.description }}</p>
-      <span class="badge badge-pill badge-secondary">{{ cour.classe }}</span>
-      <span class="badge badge-pill badge-secondary">{{ cour.matiere }}</span>
-      <span class="badge badge-pill badge-secondary">{{ cour.type }}</span>
+      <div>
+        <span class="badge badge-pill badge-secondary">{{ cour.classe }}</span>
+        <span class="badge badge-pill badge-secondary">{{ cour.matiere }}</span>
+        <span class="badge badge-pill badge-secondary">{{ cour.type }}</span>
+      </div>
+      <br>
       <h5>Fichiers du cours :</h5>
       @each(fichier in cour.fichiers)
-        <a href="{{ fichier.path }}" class="btn btn-primary">Télécharger {{ fichier.nom }}</a>
+        <a href="{{ fichier.path }}" target="blank" class="btn btn-primary">Télécharger {{ fichier.nom }}</a>
       @endeach
     </div>
+    @if(cour.userId == user.id)
+    <div class="card-footer align-right">
+      <a href="/cours/edit/{{ cour.slug }}" class="btn btn-success">Modifier</a>
+      <a href="/cours/delete/{{ cour.slug }}" class="btn btn-danger">Supprimer</a>
+    </div>
+    @endif
   </div>
   @endeach
+  <br>
 </div>
 @endsection

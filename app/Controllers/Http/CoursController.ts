@@ -10,6 +10,7 @@ export default class CoursController {
   /**
    * @TODO Add description breaklines
    * @TODO Extend validator to make the cours name unique for the user
+   * @TODO Use photoswipe for the image viewer
    */
   public async create({ request, auth, session, response }: HttpContextContract) {
     const user = auth.user || new User()
@@ -100,5 +101,51 @@ export default class CoursController {
       response.status(404)
       return view.render('errors.not-found')
     }
+  }
+
+  public async edit({ params, auth, view, response }) {
+    const user = auth.user
+    const slug = params.slug
+
+    const targetUser = await User.find(user.id)
+    const cours = await targetUser?.related('cours').query().where('slug', slug).first()
+
+    if (!cours) {
+      response.redirect('/')
+    }
+
+    return view.render('cours/edit', { user, cours })
+  }
+
+  public async update({ request, params, auth, response }) {
+    const user = auth.user
+    const targetUser = await User.find(user.id)
+    const slug = params.slug
+
+    const validationSchema = schema.create({
+      nom: schema.string({ trim: true }),
+      description: schema.string({ trim: true }, [rules.blacklist(['Description du cours'])]),
+      classe: schema.string({ trim: true }, [rules.blacklist(['Classe'])]),
+      matiere: schema.string({ trim: true }),
+      type: schema.string({ trim: true }, [rules.blacklist(['Type'])]),
+    })
+
+    const coursDetails = await request.validate({
+      schema: validationSchema,
+    })
+
+    await targetUser?.related('cours').query().where('slug', slug).update(coursDetails)
+
+    response.redirect(`/cours/${user.username}/${slug}`)
+  }
+
+  public async delete({ params, auth, response }) {
+    const user = auth.user
+    const slug = params.slug
+
+    const targetUser = await User.find(user.id)
+    await targetUser?.related('cours').query().where('slug', slug).delete()
+
+    response.redirect('/')
   }
 }

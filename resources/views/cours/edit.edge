@@ -1,0 +1,87 @@
+@layout('connected')
+
+@section('content')
+<div class="container" id="editCours">
+  <br>
+    <div class="card">
+      <div class="card-header">Modification d'un cours ou d'une fiche de révision</div>
+      <div class="card-body">
+        <form action="{{ route('CoursController.update', {
+          params: { slug: cours.slug }
+        }) }}" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <input type="text" name="nom" class="form-control" value="{{ flashMessages.get('nom') || cours.nom }}" placeholder="Nom du cours">
+            <p>{{ flashMessages.get('errors.nom') || '' }}</p>
+          </div>
+          <div class="form-group">
+            <textarea name="description" class="form-control" rows="3">{{ flashMessages.get('description') || cours.description }}</textarea>
+            <p>{{ flashMessages.get('errors.description') || '' }}</p>
+          </div>
+          <div class="form-group">
+            <select name="classe" class="custom-select">
+              @if(cours.classe == 'Terminale')
+                <option selected value="Terminale">Terminale</option>
+              @else
+                <option value="Terminale">Terminale</option>
+              @endif
+              @if(cours.classe == 'Première')
+                <option selected value="Première">Première</option>
+              @else
+                <option value="Première">Première</option>
+              @endif
+              @if(cours.classe == 'Seconde')
+                <option selected value="Seconde">Seconde</option>
+              @else
+                <option value="Seconde">Seconde</option>
+              @endif
+              @if(cours.classe == '3e')
+                <option selected value="3e">3e</option>
+              @else
+                <option value="3e">3e</option>
+              @endif
+              @if(cours.classe == '4e')
+                <option selected value="4e">4e</option>
+              @else
+                <option value="4e">4e</option>
+              @endif
+              @if(cours.classe == '5e')
+                <option selected value="5e">5e</option>
+              @else
+                <option value="5e">5e</option>
+              @endif
+              @if(cours.classe == '6e')
+                <option selected value="6e">6e</option>
+              @else
+                <option value="6e">6e</option>
+              @endif
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="matiere" value="{{ flashMessages.get('matiere') || cours.matiere }}" placeholder="Matière du cours">
+            <p>{{ flashMessages.get('errors.matiere') || '' }}</p>
+          </div>
+          <div class="form-group">
+            <select name="type" name="type" class="custom-select">
+              @if(cours.type == 'Cours')
+              <option selected value="Cours">Cours</option>  
+              @else
+              <option value="Fiche">Fiche</option>
+              @endif
+            </select>
+            <p>{{ flashMessages.get('errors.type') || '' }}</p>
+          </div>
+          <div class="form-group">
+            <div class="custom-file">
+              <div class="custom-file">
+                <input type="file" name="fichiers" class="custom-file-input" id="fichiers" multiple>
+                <label class="custom-file-label" for="miniature">Ajouter des documents au cours (< 2mb,  les formats acceptés sont : png, jp(e)g, pdf, odt, odp, docx, pptx)</label>
+              </div>
+            </div>
+            <p>{{ flashMessages.get('errors.fichiers') || '' }}</p>
+          </div>
+          <input type="submit" class="btn w-100"/>
+        </form>
+      </div>
+    </div>
+</div>
+@endsection

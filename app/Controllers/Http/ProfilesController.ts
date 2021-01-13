@@ -10,6 +10,11 @@ export default class ProfilesController {
       return response.redirect('/')
     }
     const user = auth.user
+    await targetUser.preload('cours', (query) => {
+      query.preload('miniature')
+    })
+
+    console.log(targetUser.cours)
     return view.render('profile/show', {
       user,
       isCurrentUser: user.username === targetUser?.username,

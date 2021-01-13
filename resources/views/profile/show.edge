@@ -3,7 +3,7 @@
 @section('content')
   <div class="container" id="profile">
     <br>
-    <div class="card">
+    <div id="profile-card" class="card">
       <div class="card-header">Informations de l'utilisateur</div>
       <div class="row card-body">
         <div class="col-sm-6">
@@ -19,6 +19,36 @@
         </div>
       </div>
     </div>
-    
+    <br>
+    <div class="card">
+      <br>
+      <div class="card-header">
+        Cours de cet utilisateur
+      </div>
+      <div class="card-body">
+        @each(cour in targetUser.cours)
+        <div class="card">
+          <img class="card-img-top" src="{{ cour.miniature.path }}" alt="Miniature">
+          <div class="card-body">
+            <h5 class="card-title">{{ cour.nom }}</h5>
+            <p class="card-text">{{ cour.description }}</p>
+            <span class="badge badge-pill badge-secondary">{{ cour.classe }}</span>
+            <span class="badge badge-pill badge-secondary">{{ cour.matiere }}</span>
+            <span class="badge badge-pill badge-secondary">{{ cour.type }}</span>
+            <br><br>
+            <br>
+            <a href="{{ route('CoursController.show', {
+              params: {
+                username: targetUser.username,
+                slug: cour.slug
+              }
+            }) }}" class="w-100 btn btn-secondary">Consulter</a>
+          </div>
+        </div>
+        <br>
+        @endeach
+      </div>
+    </div>
+    <br>
   </div>
 @endsection
