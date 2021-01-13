@@ -2,79 +2,100 @@
 
 @section('content')
 <div class="container" id="home">
+  <br>
   <div class="card">
-      <form class="form-inline">
-          <select class="w-25 custom-select">
-              <option selected>Classe</option>
-              <option value="1">Seconde</option>
-              <option value="2">Premiere</option>
-              <option value="3">Terminale</option>
+    <form action="{{ route('WelcomesController.welcome') }}" method="get" class="form-inline">
+        <div class="form-group w-25">
+            <select name="classe" class="custom-select">
+              @if(classe == 'Terminale')
+                <option selected value="Terminale">Terminale</option>
+              @else
+                <option value="Terminale">Terminale</option>
+              @endif
+              @if(classe == 'Première')
+                <option selected value="Première">Première</option>
+              @else
+                <option value="Première">Première</option>
+              @endif
+              @if(classe == 'Seconde')
+                <option selected value="Seconde">Seconde</option>
+              @else
+                <option value="Seconde">Seconde</option>
+              @endif
+              @if(classe == '3e')
+                <option selected value="3e">3e</option>
+              @else
+                <option value="3e">3e</option>
+              @endif
+              @if(classe == '4e')
+                <option selected value="4e">4e</option>
+              @else
+                <option value="4e">4e</option>
+              @endif
+              @if(classe == '5e')
+                <option selected value="5e">5e</option>
+              @else
+                <option value="5e">5e</option>
+              @endif
+              @if(classe == '6e')
+                <option selected value="6e">6e</option>
+              @else
+                <option value="6e">6e</option>
+              @endif
           </select>
-          <select class="w-25 custom-select">
-              <option selected>Matière</option>
-              <option value="1">Histoire-Géographie</option>
-              <option value="2">Enseignement Scientifique</option>
-              <option value="3">Philosophie</option>
-          </select>
-          <select class="w-25 custom-select">
+        </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="matiere" placeholder="Matière" value="{{ matiere || '' }}">
+          </div>
+          <select name="type" class="w-25 custom-select">
+              @if(type == 'Fiche')
+              <option selected value="Fiche">Fiche</option>
+              @else
+              <option value="Fiche">Fiche</option>
+              @endif
+              @if(type == 'Cours')
+              <option selected value="Cours">Cours</option>
+              @else
+              <option value="Cours">Cours</option>
+              @endif
+              @if(!type)
               <option selected>Type</option>
-              <option value="1">Fiche de révision</option>
-              <option value="2">Cours</option>
+              @endif
           </select>
           <button type="submit" class="btn w-25">Rechercher</button>
       </form>
   </div>
   <br>
   <div class="row">
+    @each(cour in coursPremiereLigne)
       <div class="col-sm">
-          <div class="card">
-              <i class="fas fa-star star" data-toggle="tooltip" data-placement="top" title="Ajouter aux favoris"></i>
-              <img class="card-img-top" src="https://img-4.linternaute.com/9z0cQYE68I3TREOFIKwaFgKucKE=/1240x/smart/f6893f147d7c4dac9141991c234729e6/ccmcms-linternaute/10759855.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">L'inconscient</h5>
-                <p class="card-text">Freud exprime la notion d'inconscient à travers l'interprétation des rêves.</p>
-                <span href="#" class="badge badge-dark"><i class="fas fa-user"></i> Erwan</span>
-                <span class="badge badge-pill badge-secondary">Terminale</span>
-                <span class="badge badge-pill badge-secondary">Philosophie</span>
-                <span class="badge badge-pill badge-secondary">Cours</span>
-                <br><br>
-                <br>
-                <a href="#" class="btn btn-secondary">Consulter</a>
-              </div>
-            </div>
+        <div class="card">
+          @if(cour.miniature)
+          <img class="card-img-top" src="{{ cour.miniature.path }}" alt="Miniature">  
+          @endif
+          <div class="card-body">
+            <h5 class="card-title">{{ cour.nom }}</h5>
+            <p class="card-text">{{ cour.description }}</p>
+            <span href="{{ route('ProfilesController.show', {
+                params: {
+                  username: cour.username
+                }
+            })}}" class="badge badge-dark"><i class="fas fa-user"></i>{{ cour.username }}</span>
+            <span class="badge badge-pill badge-secondary">{{ cour.classe }}</span>
+            <span class="badge badge-pill badge-secondary">{{ cour.matiere }}</span>
+            <span class="badge badge-pill badge-secondary">{{ cour.type }}</span>
+            <br><br>
+            <br>
+            <a href="{{ route('CoursController.show', {
+              params: {
+                username: cour.username,
+                slug: cour.slug
+              }
+            }) }}" class="w-100 btn btn-secondary">Consulter</a>
+          </div>
+        </div>
       </div>
-      <div class="col-sm">
-          <div class="card">
-              <i class="fas fa-star star" data-toggle="tooltip" data-placement="top" title="Ajouter aux favoris"></i>
-              <img class="card-img-top" src="https://img.lemde.fr/2019/10/08/0/0/1200/799/688/0/60/0/6ef958d_719VIr9T3frwobunsCGkW8bd.JPG" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">La crise de 1929</h5>
-                <p class="card-text">La Grande Dépression, dite aussi « crise économique des années 1930 », est la période de l'histoire mondiale qui va du krach de 1929 aux États-Unis jusqu'à la Seconde Guerre mondiale.</p>
-                <span href="#" class="badge badge-dark"><i class="fas fa-user"></i> Erwan</span>
-                <span class="badge badge-pill badge-secondary">Terminale</span>
-                <span class="badge badge-pill badge-secondary">Histoire</span>
-                <span class="badge badge-pill badge-secondary">Fiche de révision</span>
-                <br><br>
-                <a href="#" class="btn btn-secondary">Consulter</a>
-              </div>
-            </div>
-      </div>
-      <div class="col-sm">
-          <div class="card">
-              <object class="star activated" data="david.svg" type="image/svg+xml"></object>
-              <img class="card-img-top" src="https://cdn.radiofrance.fr/s3/cruiser-production/2018/10/94b6ecde-14e9-48a4-97ab-67e93cf4e083/838_gettyimages-839221830_1.jpg" alt="Card image cap">
-              <div class="card-body">
-                  <h5 class="card-title">Les régimes totalitaires</h5>
-                  <p class="card-text">Dans les années 1920 et 1930, des régimes totalitaires, fondés sur le contrôle total des populations, le pouvoir absolu d'un chef et la terreur, font leur apparition. </p>
-                  <span href="#" class="badge badge-dark"><i class="fas fa-user"></i> Erwan</span>
-                  <span class="badge badge-pill badge-secondary">Terminale</span>
-                  <span class="badge badge-pill badge-secondary">Histoire</span>
-                  <span class="badge badge-pill badge-secondary">Fiche de révision</span>
-                  <br><br>
-                  <a href="#" class="btn btn-secondary">Consulter</a>
-              </div>
-            </div>
-      </div>
+    @endeach
   </div>
 </div>
 @endsection

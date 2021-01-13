@@ -37,6 +37,7 @@ export default class CoursController {
     cours.classe = coursDetails.classe
     cours.matiere = coursDetails.matiere
     cours.type = coursDetails.type
+    cours.username = user.username
 
     const slug = slugify(coursDetails.nom)
     cours.slug = slug
@@ -65,6 +66,7 @@ export default class CoursController {
       miniature.nom = name
       miniature.path = `/uploads/${path}/${name}`
     } else {
+      miniature.nom = 'miniaturecours.png'
       miniature.path = '/miniaturecours.png'
     }
     await coursDetails.miniature?.move(Application.publicPath(`uploads/${path}/`))

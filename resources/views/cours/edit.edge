@@ -64,8 +64,10 @@
             <select name="type" name="type" class="custom-select">
               @if(cours.type == 'Cours')
               <option selected value="Cours">Cours</option>  
-              @else
               <option value="Fiche">Fiche</option>
+              @else
+              <option selected value="Fiche">Fiche</option>
+              <option value="Cours">Cours</option>
               @endif
             </select>
             <p>{{ flashMessages.get('errors.type') || '' }}</p>

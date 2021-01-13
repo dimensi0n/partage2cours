@@ -20,10 +20,7 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async ({ auth, view }) => {
-  const user = await auth.authenticate()
-  return view.render('welcome', { user })
-})
+Route.get('/', 'WelcomesController.welcome').middleware('auth')
 
 Route.on('register').render('register')
 Route.post('register', 'AuthController.register')

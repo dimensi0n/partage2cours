@@ -31,6 +31,9 @@ body {
   color: var(--main-color);
 }
 
+#home .form-inline .form-control, #home .form-inline .custom-select {
+  margin: 0 5px;
+}
 #home .card {
   padding: 2%;
 }

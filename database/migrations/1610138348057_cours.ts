@@ -8,6 +8,7 @@ export default class Cours extends BaseSchema {
       table.increments('id')
       table.timestamps(true)
       table.integer('user_id').notNullable()
+      table.string('username').notNullable()
       table.string('nom').notNullable()
       table.string('description').notNullable()
       table.string('slug').notNullable()

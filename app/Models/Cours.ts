@@ -16,6 +16,9 @@ export default class Cours extends BaseModel {
   public userId: number
 
   @column()
+  public username: string
+
+  @column()
   public nom: string
 
   @column()

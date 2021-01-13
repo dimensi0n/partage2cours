@@ -28,7 +28,9 @@
       <div class="card-body">
         @each(cour in targetUser.cours)
         <div class="card">
-          <img class="card-img-top" src="{{ cour.miniature.path }}" alt="Miniature">
+          @if(cour.miniature)
+          <img class="card-img-top" src="{{ cour.miniature.path }}" alt="Miniature">  
+          @endif
           <div class="card-body">
             <h5 class="card-title">{{ cour.nom }}</h5>
             <p class="card-text">{{ cour.description }}</p>
