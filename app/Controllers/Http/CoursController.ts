@@ -3,8 +3,10 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import Application from '@ioc:Adonis/Core/Application'
 import Cours from 'App/Models/Cours'
 import slugify from 'slugify'
+import { unlink } from 'fs'
 import User from 'App/Models/User'
 import Fichier from 'App/Models/Fichier'
+import Miniature from 'App/Models/Miniature'
 
 export default class CoursController {
   /**
@@ -60,13 +62,11 @@ export default class CoursController {
       await document.move(Application.publicPath(`uploads/${path}/`))
       await cours.related('fichiers').save(fichier)
     }
-    const miniature = new Fichier()
+    const miniature = new Miniature()
     if (coursDetails.miniature) {
       const name = coursDetails.miniature?.clientName
-      miniature.nom = name
       miniature.path = `/uploads/${path}/${name}`
     } else {
-      miniature.nom = 'miniaturecours.png'
       miniature.path = '/miniaturecours.png'
     }
     await coursDetails.miniature?.move(Application.publicPath(`uploads/${path}/`))
@@ -119,6 +119,9 @@ export default class CoursController {
     return view.render('cours/edit', { user, cours })
   }
 
+  /**
+   * @TODO add more files
+   */
   public async update({ request, params, auth, response }) {
     const user = auth.user
     const targetUser = await User.find(user.id)
@@ -138,6 +141,23 @@ export default class CoursController {
 
     await targetUser?.related('cours').query().where('slug', slug).update(coursDetails)
 
+    const cours = await targetUser?.related('cours').query().where('slug', slug).first()
+    const path = `${user.username}/${slug}`
+
+    const fichiers = request.files('fichiers', {
+      size: '2mb',
+      extnames: ['jpg', 'png', 'jpeg', 'docx', 'odt', 'pdf', 'pptx', 'odp'],
+    })
+
+    for (let document of fichiers) {
+      const fichier = new Fichier()
+      const name = document.clientName
+      fichier.nom = name
+      fichier.path = `/uploads/${path}/${name}`
+      await document.move(Application.publicPath(`uploads/${path}/`))
+      await cours?.related('fichiers').save(fichier)
+    }
+
     response.redirect(`/cours/${user.username}/${slug}`)
   }
 
@@ -146,6 +166,16 @@ export default class CoursController {
     const slug = params.slug
 
     const targetUser = await User.find(user.id)
+    const cours = await targetUser?.related('cours').query().where('slug', slug).first()
+
+    const fichiers = await cours?.related('fichiers').query()
+    for (let fichier of fichiers ? fichiers : []) {
+      const path = fichier.path
+      unlink(Application.publicPath(path), (err) => console.log(err))
+    }
+
+    await cours?.related('fichiers').query().delete()
+    await cours?.related('miniature').query().delete()
     await targetUser?.related('cours').query().where('slug', slug).delete()
 
     response.redirect('/')

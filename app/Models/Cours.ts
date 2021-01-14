@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, HasMany, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import Fichier from './Fichier'
+import Miniature from './Miniature'
 
 export default class Cours extends BaseModel {
   @column({ isPrimary: true })
@@ -27,8 +28,8 @@ export default class Cours extends BaseModel {
   @column()
   public description: string
 
-  @hasOne(() => Fichier)
-  public miniature: HasOne<typeof Fichier>
+  @hasOne(() => Miniature)
+  public miniature: HasOne<typeof Miniature>
 
   @column()
   public classe: string

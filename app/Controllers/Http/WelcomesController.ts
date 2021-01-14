@@ -2,6 +2,9 @@
 
 import Cours from 'App/Models/Cours'
 
+/**
+ * @TODO Pagination
+ */
 export default class WelcomesController {
   public async welcome({ request, auth, view }) {
     const user = auth.user
@@ -34,16 +37,14 @@ export default class WelcomesController {
         }
       } else if (i <= 5) {
         if (cours[i]) {
-          coursSecondeLigne.push(cours[i]) ? cours[i] !== undefined : false
+          coursSecondeLigne.push(cours[i])
         }
       } else if (i <= 5) {
         if (cours[i]) {
-          coursTroisiemeLigne.push(cours[i]) ? cours[i] !== undefined : false
+          coursTroisiemeLigne.push(cours[i])
         }
       }
     }
-
-    console.log(coursPremiereLigne)
 
     return view.render('welcome', {
       classe,
