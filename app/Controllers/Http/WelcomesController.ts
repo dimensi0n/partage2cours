@@ -54,6 +54,7 @@ export default class WelcomesController {
       coursPremiereLigne,
       coursSecondeLigne,
       coursTroisiemeLigne,
+      hasCours: coursPremiereLigne.length > 0,
     })
   }
 }

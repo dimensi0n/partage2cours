@@ -66,6 +66,73 @@
       </form>
   </div>
   <br>
+  @if(!hasCours)
+  <div class="alert alert-primary">
+    Il n'y a pas de cours correspondant à la classe et/ou la matière et/ou le type choisi.
+  </div>
+  @endif
+  <div class="row">
+    @each(cour in coursPremiereLigne)
+      <div class="col-sm">
+        <div class="card">
+          @if(cour.miniature)
+          <img class="card-img-top" src="{{ cour.miniature.path }}" alt="Miniature">  
+          @endif
+          <div class="card-body">
+            <h5 class="card-title">{{ cour.nom }}</h5>
+            <p class="card-text">{{ cour.description }}</p>
+            <span href="{{ route('ProfilesController.show', {
+                params: {
+                  username: cour.username
+                }
+            })}}" class="badge badge-dark"><i class="fas fa-user"></i>{{ cour.username }}</span>
+            <span class="badge badge-pill badge-secondary">{{ cour.classe }}</span>
+            <span class="badge badge-pill badge-secondary">{{ cour.matiere }}</span>
+            <span class="badge badge-pill badge-secondary">{{ cour.type }}</span>
+            <br><br>
+            <br>
+            <a href="{{ route('CoursController.show', {
+              params: {
+                username: cour.username,
+                slug: cour.slug
+              }
+            }) }}" class="w-100 btn btn-secondary">Consulter</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    @endeach
+    <div class="row">
+      @each(cour in coursSecondeLigne)
+        <div class="col-sm">
+          <div class="card">
+            @if(cour.miniature)
+            <img class="card-img-top" src="{{ cour.miniature.path }}" alt="Miniature">  
+            @endif
+            <div class="card-body">
+              <h5 class="card-title">{{ cour.nom }}</h5>
+              <p class="card-text">{{ cour.description }}</p>
+              <span href="{{ route('ProfilesController.show', {
+                  params: {
+                    username: cour.username
+                  }
+              })}}" class="badge badge-dark"><i class="fas fa-user"></i>{{ cour.username }}</span>
+              <span class="badge badge-pill badge-secondary">{{ cour.classe }}</span>
+              <span class="badge badge-pill badge-secondary">{{ cour.matiere }}</span>
+              <span class="badge badge-pill badge-secondary">{{ cour.type }}</span>
+              <br><br>
+              <br>
+              <a href="{{ route('CoursController.show', {
+                params: {
+                  username: cour.username,
+                  slug: cour.slug
+                }
+              }) }}" class="w-100 btn btn-secondary">Consulter</a>
+            </div>
+          </div>
+        </div>
+      @endeach
+  </div>
   <div class="row">
     @each(cour in coursPremiereLigne)
       <div class="col-sm">

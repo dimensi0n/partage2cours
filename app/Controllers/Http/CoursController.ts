@@ -105,6 +105,9 @@ export default class CoursController {
     }
   }
 
+  /**
+   * @TODO remove files
+   */
   public async edit({ params, auth, view, response }) {
     const user = auth.user
     const slug = params.slug
@@ -120,7 +123,7 @@ export default class CoursController {
   }
 
   /**
-   * @TODO add more files
+   * @TODO change miniature
    */
   public async update({ request, params, auth, response }) {
     const user = auth.user
