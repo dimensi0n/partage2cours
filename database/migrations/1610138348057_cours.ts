@@ -10,7 +10,7 @@ export default class Cours extends BaseSchema {
       table.integer('user_id').notNullable()
       table.string('username').notNullable()
       table.string('nom').notNullable()
-      table.string('description').notNullable()
+      table.text('description').notNullable()
       table.string('slug').notNullable()
       table.string('type').notNullable()
       table.string('classe').notNullable()

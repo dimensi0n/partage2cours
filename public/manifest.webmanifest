@@ -1,0 +1,14 @@
+{
+  "name": "Plateforme de partage de cours",
+  "short_name": "Partage2cours",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fc6ca4",
+  "theme_color": "#fc6ca4",
+  "description": "Plateforme libre de partage de cours pour les eleves et les professeurs",
+  "icons": [{
+    "src": "p2c-square.png",
+    "sizes": "400x400",
+    "type": "image/png"
+  }]
+}
