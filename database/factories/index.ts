@@ -1,1 +1,1 @@
-// import Factory from '@ioc:Adonis/Lucid/Factory'
+//import Factory from '@ioc:Adonis/Lucid/Factory'

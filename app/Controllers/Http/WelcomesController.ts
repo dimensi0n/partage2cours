@@ -46,6 +46,7 @@ export default class WelcomesController {
       }
     }
 
+    console.log(request)
     return view.render('welcome', {
       classe,
       user,
@@ -55,6 +56,9 @@ export default class WelcomesController {
       coursSecondeLigne,
       coursTroisiemeLigne,
       hasCours: coursPremiereLigne.length > 0,
+      lastPage: Array.from(Array(cours.lastPage), (_, i) => i + 1),
+      hasPages: true,
+      currentPage: cours.currentPage,
     })
   }
 }
