@@ -24,8 +24,24 @@
     </div>
     @if(cour.userId == user.id)
     <div class="card-footer align-right">
-      <a href="/cours/edit/{{ cour.slug }}" class="btn btn-success">Modifier</a>
-      <a href="/cours/delete/{{ cour.slug }}" class="btn btn-danger">Supprimer</a>
+      <a href="{{ route('CoursController.edit', {
+        params: {
+          slug: cour.slug
+        }
+      }) }}" class="btn btn-success">Modifier</a>
+      <a href="{{ route('CoursController.delete', {
+        params: {
+          slug: cour.slug
+        }
+      }) }}" class="btn btn-danger">Supprimer</a>
+    </div>
+    @else
+    <div class="card-footer align-right">
+      <a href="{{ route('CoursController.save', {
+        params: {
+          id: cour.id
+        }
+      }) }}">Enregistrer</a>
     </div>
     @endif
   </div>

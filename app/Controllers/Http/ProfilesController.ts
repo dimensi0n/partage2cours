@@ -28,7 +28,6 @@ export default class ProfilesController {
      */
     const validationSchema = schema.create({
       email: schema.string({ trim: true }, [rules.email()]),
-      username: schema.string({ trim: true }, [rules.alpha(), rules.blacklist(['edit'])]),
       classe: schema.string({ trim: true }),
     })
 

@@ -1,0 +1,44 @@
+@layout('connected')
+
+@section('content')
+<div class="container" id="saved">
+  <br>
+  <table class="table table-light">
+    <thead>
+      <tr>
+        <th scope="col">Nom</th>
+        <th scope="col">Utilisateur</th>
+        <th scope="col">Classe</th>
+        <th scope="col">Matière</th>
+        <th scope="col">Type</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(cours in savedCours)
+        <tr>
+          <td><a href="{{ route('CoursController.show', {
+            params: {
+              username: cours.username,
+              slug: cours.slug
+            }
+          }) }}">{{ cours.nom }}</a></td>
+          <td><a href="{{ route('ProfilesController.show', {
+            params: {
+              username: cours.username
+            }
+          }) }}">{{ cours.username }}</a></td>
+          <td>{{ cours.classe }}</td>
+          <td>{{ cours.matiere }}</td>
+          <td>{{ cours.type }}</td>
+          <td><a href="{{ route('CoursController.unsave', {
+            params: {
+              id: cours.id
+            }
+          }) }}" class="btn btn-danger">Désenregistrer</a></td>
+        </tr>
+      @endeach
+    </tbody>
+  </table>
+</div>
+@endsection

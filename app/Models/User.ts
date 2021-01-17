@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Cours from './Cours'
 
 export default class User extends BaseModel {
@@ -32,4 +32,13 @@ export default class User extends BaseModel {
 
   @hasMany(() => Cours)
   public cours: HasMany<typeof Cours>
+
+  @manyToMany(() => Cours, {
+    pivotTable: 'saved_cours',
+    localKey: 'id',
+    pivotForeignKey: 'user_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'cours_id',
+  })
+  public savedCours: ManyToMany<typeof Cours>
 }

@@ -183,4 +183,38 @@ export default class CoursController {
 
     response.redirect('/')
   }
+
+  public async save({ params, auth, response }) {
+    const userID = auth.user.id
+    const id = params.id
+
+    const cours = (await Cours.find(id)) || new Cours()
+    const user = await User.find(userID)
+
+    await user?.related('savedCours').save(cours)
+
+    response.redirect('/savedCours')
+  }
+
+  public async unsave({ params, auth, response }) {
+    const userID = auth.user.id
+    const id = params.id
+
+    const user = await User.find(userID)
+
+    await user?.related('savedCours').detach([id])
+
+    response.redirect('back')
+  }
+
+  public async saved({ auth, view }) {
+    const id = auth.user.id
+    const user = await User.find(id)
+    const savedCours = await user?.related('savedCours').query().preload('miniature')
+
+    return view.render('cours/saved', {
+      user,
+      savedCours,
+    })
+  }
 }

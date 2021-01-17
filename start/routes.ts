@@ -49,7 +49,11 @@ Route.group(() => {
   Route.get('/edit/:slug', 'CoursController.edit')
   Route.post('/update/:slug', 'CoursController.update')
   Route.get('/delete/:slug', 'CoursController.delete')
+  Route.get('/save/:id', 'CoursController.save')
+  Route.get('/unsave/:id', 'CoursController.unsave')
   Route.get('/:username/:slug', 'CoursController.show')
 })
   .prefix('/cours')
   .middleware('auth')
+
+Route.get('/savedCours', 'CoursController.saved').middleware('auth')

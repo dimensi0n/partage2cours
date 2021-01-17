@@ -14,13 +14,6 @@
             <p>{{ flashMessages.get('errors.email') || '' }}</p>
           </div>
           <div class="form-group">
-            <div class="alert alert-secondary" id="usernameAlert" role="alert">
-              Le nom d'utilisateur ne doit contenir que des lettres (pas de caractères spéciaux ou de chiffres)
-            </div>
-            <input type="text" class="form-control" name="username" placeholder="Nom d'utilisateur" value="{{ flashMessages.get('username') || user.username }}">
-            <p>{{ flashMessages.get('errors.username') || '' }}</p>
-          </div>
-          <div class="form-group">
             <select name="classe" class="custom-select">
               @if(user.classe == 'Terminale')
                 <option selected value="Terminale">Terminale</option>

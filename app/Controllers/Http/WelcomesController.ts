@@ -46,7 +46,6 @@ export default class WelcomesController {
       }
     }
 
-    console.log(request)
     return view.render('welcome', {
       classe,
       user,
