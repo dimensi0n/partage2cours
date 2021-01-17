@@ -85,5 +85,19 @@
         </form>
       </div>
     </div>
+    <br>
+    <div class="card">
+      <div class="card-header">Supprimer des fichiers uploadés</div>
+      <div class="card-body">
+        @each(fichier in cours.fichiers)
+          <a href="{{ route('FichiersController.delete', {
+            params: {
+              id: fichier.id
+            }
+          }) }}" class="btn btn-danger">Supprimer {{ fichier.nom }}</a>
+          <br>
+        @endeach
+      </div>
+    </div>
 </div>
 @endsection

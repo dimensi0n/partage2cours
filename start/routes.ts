@@ -57,3 +57,8 @@ Route.group(() => {
   .middleware('auth')
 
 Route.get('/savedCours', 'CoursController.saved').middleware('auth')
+Route.group(() => {
+  Route.get('/delete/:id', 'FichiersController.delete')
+})
+  .prefix('/fichier')
+  .middleware('auth')

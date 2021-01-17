@@ -113,7 +113,12 @@ export default class CoursController {
     const slug = params.slug
 
     const targetUser = await User.find(user.id)
-    const cours = await targetUser?.related('cours').query().where('slug', slug).first()
+    const cours = await targetUser
+      ?.related('cours')
+      .query()
+      .where('slug', slug)
+      .preload('fichiers')
+      .first()
 
     if (!cours) {
       response.redirect('/')
