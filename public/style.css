@@ -42,6 +42,11 @@ button:active:focus {
     color: var(--main-color);
 }
 
+footer > img {
+    width: 20px;
+    height: 20px;
+}
+
 @media screen and (min-width: 740px) {
     body {
         padding: 10% 30%;

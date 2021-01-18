@@ -74,3 +74,13 @@ body {
 form p {
   color: red;
 }
+
+footer {
+  text-align: center;
+  margin-bottom: 0 !important;
+}
+
+footer > img {
+  width: 20px;
+  height: 20px;
+}
