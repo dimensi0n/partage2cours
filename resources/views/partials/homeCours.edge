@@ -1,0 +1,35 @@
+<div class="col-sm">
+  <div class="card">
+    @if(cour.miniature)
+    <img class="card-img-top" src="{{ cour.miniature.path }}" alt="Miniature">  
+    @endif
+    <div class="card-body">
+      <h5 class="card-title">{{ cour.nom }}</h5>
+      <p class="card-text">{{ cour.description }}</p>
+      <a href="{{ route('ProfilesController.show', {
+        params: {
+          username: cour.username
+        }
+    })}}">  
+        <span class="badge badge-dark"><i class="fas fa-user"></i>{{ cour.username }}</span>
+      </a>
+      <span class="badge badge-pill badge-secondary">{{ cour.classe }}</span>
+      <span class="badge badge-pill badge-secondary">{{ cour.matiere }}</span>
+      <span class="badge badge-pill badge-secondary">{{ cour.type }}</span>
+      <br><br>
+      <br>
+      <a href="{{ route('CoursController.show', {
+        params: {
+          username: cour.username,
+          slug: cour.slug
+        }
+      }) }}" class="w-100 btn btn-secondary">Consulter</a>
+      <br><br>
+      <a href="{{ route('CoursController.save', {
+        params: {
+          id: cour.id
+        }
+      }) }}" class="w-100 btn btn-outline-secondary">Enregistrer</a>
+    </div>
+  </div>
+</div>
