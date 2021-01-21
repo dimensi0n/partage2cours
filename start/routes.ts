@@ -62,3 +62,9 @@ Route.group(() => {
 })
   .prefix('/fichier')
   .middleware('auth')
+
+Route.group(() => {
+  Route.post('/create/:id', 'ReportsController.create')
+})
+  .prefix('/report')
+  .middleware('auth')
