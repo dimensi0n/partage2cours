@@ -3,6 +3,11 @@
 @section('content')
 <div class="container" id="showCours">
   <br>
+  @if(flashMessages.has('reported'))
+  <div class="alert alert-success">
+    {{ flashMessages.get('reported')}}
+  </div>
+  @endif
   @each(cour in cours)
   <div class="card">
     @if(cour.miniature.path)
@@ -22,7 +27,7 @@
         <a href="{{ fichier.path }}" target="blank" class="btn btn-primary">Télécharger {{ fichier.nom }}</a>
       @endeach
     </div>
-    @if(cour.userId == user.id)
+    @if(cour.userId == user.id || user.username == 'admin')
     <div class="card-footer align-right">
       <a href="{{ route('CoursController.edit', {
         params: {

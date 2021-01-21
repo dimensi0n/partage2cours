@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/458643e43a.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/adminStyle.css">
+
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/p2c-square.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+
+  <title>Panneau administrateur</title>
+</head>
+<body>
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">Panneau d'administration</a>
+    <a href="/" class="btn btn-outline-primary">Retourner à l'acceuil</a>
+  </nav>
+  <div class="container">
+    @if(flashMessages.has('success'))
+      <div class="alert alert-success">
+        {{ flashMessages.get('success') }}
+      </div>
+    @elseif(flashMessages.has('error'))
+      <div class="alert alert-danger">
+        {{ flashMessages.get('error') }}
+      </div>
+    @endif
+    <br>
+    <h4>Signalements</h4>
+    @each(report in reports)
+      @if(report.cours)
+      <div class="card">
+        <h5 class="card-header">{{ report.cours.nom }}</h5>
+        <div class="card-body">
+          <p class="card-text">
+            <b>Nom du cours :</b> {{ report.cours.nom }}
+            <br>
+            <b>Raison donnée lors du signalement :</b> {{ report.reason }}
+            <br>
+            <b>Utilisateur ayant créé ce cours :</b> {{ report.cours.username }}
+          </p>
+        </div>
+        <div class="card-footer centered">
+          <a href="{{ route('ProfilesController.show', {
+            params: {
+              username: report.cours.username
+            }
+          }) }}" class="btn btn-secondary">Consulter l'utilisateur*</a>
+          <a href="{{ route('CoursController.show', {
+            params: {
+              username: report.cours.username,
+              slug: report.cours.slug
+            }
+          }) }}" class="btn btn-primary">Consulter le cours</a>
+          <a href="{{ route('ReportsController.delete', {
+            params: {
+              id: report.id
+            }
+          }) }}" class="btn btn-danger">Supprimer le signalement</a>
+        </div>
+      </div>
+      <p><i>*l'utilisateur qui a créé le cours</i></p>
+      <br>
+      @endif
+    @endeach
+    <br>
+    <h4>Supprimer un cours</h4>
+    <div class="alert alert-secondary">
+      Il est aussi possible de supprimer un cours directement en bas de sa page en consultant celui-ci
+    </div>
+    <form action="{{ route('ReportsController.deleteCours') }}" method="post">
+      <div class="form-group">
+        <input type="text" name="username" placeholder="Nom de l'utilisateur" class="form-control">
+        <br>
+        <input type="text" name="slug" placeholder="Slug (la dernière partie de l'addresse du cours)" class="form-control">
+        <br>
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+      </div>
+    </form>
+    <br>
+    <h4>Supprimer un utilisateur</h4>
+    <form action="{{ route('ReportsController.deleteUser') }}" method="post">
+      <div class="form-group">
+        <input type="text" name="username" placeholder="Nom de l'utilisateur" class="form-control">
+        <br>
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+      </div>
+    </form>
+    <br>
+  </div>
+  @include('partials/footer')
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

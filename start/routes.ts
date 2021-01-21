@@ -65,6 +65,13 @@ Route.group(() => {
 
 Route.group(() => {
   Route.post('/create/:id', 'ReportsController.create')
+  Route.group(() => {
+    Route.get('/delete/:id', 'ReportsController.delete')
+    Route.post('/deleteCours', 'ReportsController.deleteCours')
+    Route.post('/deleteUser', 'ReportsController.deleteUser')
+  }).middleware('admin')
 })
   .prefix('/report')
   .middleware('auth')
+
+Route.get('/admin', 'ReportsController.index').middleware('auth').middleware('admin')
