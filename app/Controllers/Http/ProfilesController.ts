@@ -14,7 +14,6 @@ export default class ProfilesController {
       query.preload('miniature')
     })
 
-    console.log(targetUser.cours)
     return view.render('profile/show', {
       user,
       isCurrentUser: user.username === targetUser?.username,
